@@ -1,0 +1,14 @@
+odoo-db-data/
+odoo-web-data/
+
+__pycache__/
+*.py[cod]
+*$py.class
+
+venv/
+env/
+
+*.log
+
+.DS_Store
+Thumbs.db
