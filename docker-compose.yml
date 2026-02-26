@@ -1,0 +1,33 @@
+version: '3.8'
+
+services:
+  # Contenedor de la Aplicación Web (Odoo)
+  web:
+    image: odoo:17.0
+    container_name: odoo_web_papeleria
+    depends_on:
+      - db
+    ports:
+      - "8069:8069" # Mapeo de puerto
+    volumes:
+      - odoo-web-data:/var/lib/odoo
+      # IMPORTANTE: Mapeamos la carpeta de configuración para poder hacer el backup del odoo.conf después
+      - ./config:/etc/odoo
+    environment:
+      - HOST=db
+      - USER=odoo
+      - PASSWORD=odoo
+       
+  db:
+    image: postgres:15
+    container_name: odoo_db_papeleria
+    environment:
+      - POSTGRES_DB=postgres
+      - POSTGRES_PASSWORD=odoo
+      - POSTGRES_USER=odoo
+    volumes:
+      - odoo-db-data:/var/lib/postgresql/data
+
+volumes:
+  odoo-web-data:
+  odoo-db-data:
